@@ -6,7 +6,7 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import Layout from "../components/Layout";
 import { useState } from 'react';
-import { generateReport } from "../services/reportServices";
+import { generateReport, downloadReport } from "../services/reportServices";
 
 interface Message {
     text: string;
@@ -39,7 +39,6 @@ const Home = () => {
         try {
             const data = await generateReport(query)
             setLocalReportData({query: data.query ,report: data.report, downloadUrl: data.download_url});
-            console.log("Data: ", data);
             setIsLoading(false);
             setMessage({ text: "Success! Report generated", type: "success" });
         } catch (error) {
@@ -54,6 +53,27 @@ const Home = () => {
         sessionStorage.setItem("reportData", JSON.stringify(localReportData));
         window.open("/viewReport", "_blank");
     }
+
+    const handleDownloadClick = async (e: React.MouseEvent, downloadURL: string) => {
+        e.preventDefault();
+    
+        try {
+            const response = await downloadReport(downloadURL);
+            const url = window.URL.createObjectURL(new Blob([response]));
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute("download", downloadURL?.split('/').pop() || "report.doc"); // Use the last part of the URL as filename
+            document.body.appendChild(link);
+            link.click();
+    
+            // Cleanup
+            link.remove();
+            window.URL.revokeObjectURL(url);
+        } catch (error) {
+            console.error("Error downloading file:", error);
+            alert("Failed to download file. Please try again.");
+        }
+    };
 
     return (
         <Layout backgroundImage="./background.jpg">
@@ -164,7 +184,7 @@ const Home = () => {
                                 </a>
                                 } &nbsp; or &nbsp; 
                                  {
-                                    <a href={`${import.meta.env.VITE_API_SERVER_URL}${localReportData?.downloadUrl}`} download>
+                                    <a href="#" onClick={(e) => handleDownloadClick(e, localReportData?.downloadUrl)}>
                                         Download Report
                                     </a>
                                 }
