@@ -6,7 +6,9 @@ const generateReport = async (query: string) => {
             {
                 headers: {
                     'Content-Type': 'application/json',
+                    'x-api-key': import.meta.env.VITE_SECRET_API_KEY,
                 },
+                withCredentials: true,
             }
         );
     
