@@ -38,6 +38,11 @@ const Home = () => {
         }
         try {
             const data = await generateReport(query)
+            if (data.error) {
+                setMessage({ text: `Error: ${data.error.detail}`, type: "error" });
+                setIsLoading(false);
+                return;
+            }
             setLocalReportData({query: data.query ,report: data.report, downloadUrl: data.download_url});
             setIsLoading(false);
             setMessage({ text: "Success! Report generated", type: "success" });

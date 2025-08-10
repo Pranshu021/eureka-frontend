@@ -18,9 +18,11 @@ const generateReport = async (query: string) => {
     
         const data = await response.data;
         return data;
-    } catch (error) {
+    } catch (error: any) {
         console.log('Error generating report:', error);
-        throw error;
+        return {
+            error: error.response.data
+        }
     }
 }
 
