@@ -109,17 +109,16 @@ const Home = () => {
                 >
                     Eureka – Agentic AI Research Team
                 </Typography>
-                <Box sx={{ width: "600px" }}>
-                    <Typography 
-                        color="white"
-                        fontWeight={300}
-                        sx={{
-                            textShadow: "0 0 10px rgba(0,255,255,0.2)",
-                        }}>
-                        Turning questions into breakthroughs by converting queries to comprehensive report. AI-powered research at your fingertips
-                    </Typography>
-                </Box>
 
+                <Typography 
+                    color="white"
+                    fontWeight={300}
+                    sx={{
+                        textShadow: "0 0 10px rgba(0,255,255,0.2)",
+                    }}>
+                    Turning questions into breakthroughs by converting queries to comprehensive report. AI-powered research at your fingertips
+                </Typography>
+                
                 <TextField
                 id="outlined-basic"
                 label="Enter a topic to research..."
