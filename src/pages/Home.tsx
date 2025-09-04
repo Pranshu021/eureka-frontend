@@ -107,9 +107,9 @@ const Home = () => {
                         },
                     }}
                 >
-                    Eureka – Agentic AI Research Team
+                    ⚠️ We are scaling our infrastructure. Hence our website is temporarily unavailable.<br/>We'll be back soon. Thanks for your patience!
                 </Typography>
-
+{/* 
                 <Typography 
                     color="white"
                     fontWeight={300}
@@ -174,7 +174,6 @@ const Home = () => {
                     onClick={handleSubmitQuery}
                     disabled={isLoading || !query.trim()}
                 >
-                    {/* {isLoading ? "Generating Report..." : "Start Research"} */}
                     Start Research
                 </Button>
                                 
@@ -204,7 +203,7 @@ const Home = () => {
                                 }
                         </>) : <></>}
                     </Alert>
-                )}
+                )} */}
 
             </Box>
         </Layout>
