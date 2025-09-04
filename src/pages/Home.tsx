@@ -1,84 +1,91 @@
 
-import { Box, Typography, TextField, Button, Alert } from "@mui/material";
+// import { Box, Typography, TextField, Button, Alert } from "@mui/material";
+import { Box, Typography} from "@mui/material";
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import Layout from "../components/Layout";
-import { useState } from 'react';
-import { generateReport, downloadReport } from "../services/reportServices";
+// import { useState } from 'react';
+// import { generateReport, downloadReport } from "../services/reportServices";
 
-interface Message {
-    text: string;
-    type: "success" | "error" | "info" | "warning";
-}
 
-interface ReportData {
-    report: string;
-    query: string;
-    downloadUrl: string
-}
+
+// ------------------------ TEMPORARY SHUTDOWN ---------------------------
+
+
+
+// interface Message {
+//     text: string;
+//     type: "success" | "error" | "info" | "warning";
+// }
+
+// interface ReportData {
+//     report: string;
+//     query: string;
+//     downloadUrl: string
+// }
 
 const Home = () => {
-    const [localReportData, setLocalReportData] = useState<ReportData>({report: "", query: "", downloadUrl: ""});
-    const [query, setQuery] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
-    const [message, setMessage] = useState<Message>({
-        text: "",
-        type: "info",
-    });
+    // const [localReportData, setLocalReportData] = useState<ReportData>({report: "", query: "", downloadUrl: ""});
+    // const [query, setQuery] = useState("");
+    // const [isLoading, setIsLoading] = useState(false);
+    // const [message, setMessage] = useState<Message>({
+    //     text: "",
+    //     type: "info",
+    // });
 
-    const handleSubmitQuery = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setIsLoading(true);
-        setMessage({ text: "Generating report...", type: "info" });
-        if (!query) {
-            setMessage({ text: "Please enter a research topic.", type: "error" });
-            return;
-        }
-        try {
-            const data = await generateReport(query)
-            if (data.error) {
-                setMessage({ text: `Error: ${data.error.detail}`, type: "error" });
-                setIsLoading(false);
-                return;
-            }
-            setLocalReportData({query: data.query ,report: data.report, downloadUrl: data.download_url});
-            setIsLoading(false);
-            setMessage({ text: "Success! Report generated", type: "success" });
-        } catch (error) {
-            console.error("Error generating report:", error);
-            setMessage({ text: "Error! Failed to Generate Report. Please try again later.", type: "error" });
-            setIsLoading(false);
-        }
-    }
+    // const handleSubmitQuery = async (e: React.FormEvent) => {
+    //     e.preventDefault();
+    //     setIsLoading(true);
+    //     setMessage({ text: "Generating report...", type: "info" });
+    //     if (!query) {
+    //         setMessage({ text: "Please enter a research topic.", type: "error" });
+    //         return;
+    //     }
+    //     try {
+    //         const data = await generateReport(query)
+    //         if (data.error) {
+    //             setMessage({ text: `Error: ${data.error.detail}`, type: "error" });
+    //             setIsLoading(false);
+    //             return;
+    //         }
+    //         setLocalReportData({query: data.query ,report: data.report, downloadUrl: data.download_url});
+    //         setIsLoading(false);
+    //         setMessage({ text: "Success! Report generated", type: "success" });
+    //     } catch (error) {
+    //         console.error("Error generating report:", error);
+    //         setMessage({ text: "Error! Failed to Generate Report. Please try again later.", type: "error" });
+    //         setIsLoading(false);
+    //     }
+    // }
 
-    const handleViewClick = (e: React.FormEvent, localReportData: ReportData) => {
-        e.preventDefault();
-        sessionStorage.setItem("reportData", JSON.stringify(localReportData));
-        window.open("/viewReport", "_blank");
-    }
+    // const handleViewClick = (e: React.FormEvent, localReportData: ReportData) => {
+    //     e.preventDefault();
+    //     sessionStorage.setItem("reportData", JSON.stringify(localReportData));
+    //     window.open("/viewReport", "_blank");
+    // }
 
-    const handleDownloadClick = async (e: React.MouseEvent, downloadURL: string) => {
-        e.preventDefault();
+    // const handleDownloadClick = async (e: React.MouseEvent, downloadURL: string) => {
+    //     e.preventDefault();
     
-        try {
-            const response = await downloadReport(downloadURL);
-            const url = window.URL.createObjectURL(new Blob([response]));
-            const link = document.createElement("a");
-            link.href = url;
-            link.setAttribute("download", downloadURL?.split('/').pop() || "report.doc"); // Use the last part of the URL as filename
-            document.body.appendChild(link);
-            link.click();
+    //     try {
+    //         const response = await downloadReport(downloadURL);
+    //         const url = window.URL.createObjectURL(new Blob([response]));
+    //         const link = document.createElement("a");
+    //         link.href = url;
+    //         link.setAttribute("download", downloadURL?.split('/').pop() || "report.doc"); // Use the last part of the URL as filename
+    //         document.body.appendChild(link);
+    //         link.click();
     
-            // Cleanup
-            link.remove();
-            window.URL.revokeObjectURL(url);
-        } catch (error) {
-            console.error("Error downloading file:", error);
-            alert("Failed to download file. Please try again.");
-        }
-    };
+    //         // Cleanup
+    //         link.remove();
+    //         window.URL.revokeObjectURL(url);
+    //     } catch (error) {
+    //         console.error("Error downloading file:", error);
+    //         alert("Failed to download file. Please try again.");
+    //     }
+    // };
 
     return (
         <Layout backgroundImage="./background.jpg">
